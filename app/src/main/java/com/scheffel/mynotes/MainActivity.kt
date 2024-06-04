@@ -7,7 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -21,28 +20,29 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            // Variavel que altera o boolean do dark mode
+            val checked by remember { mutableStateOf(mutableStateOf(false)) }
 
-            var checked by remember { mutableStateOf(mutableStateOf(false)) }
-
-            var txtTitle by remember { mutableStateOf("") }
-
+            // Controlador da navegação
             val navController = rememberNavController()
 
-
+            // Configurando o tema dark
             MyNotesTheme(darkTheme = checked.value) {
 
-
                 NavHost(navController = navController, startDestination = "home") {
+                    // Tela principal
                     composable("home") {
                         HomeScreen(
                             navController = navController,
                         )
                     }
+                    // Tela para escrever notas
                     composable("write") {
                         WriteScreen(
                             navController = navController,
                         )
                     }
+                    // Tela de configuração
                     composable("configuration") {
                         ConfigurationScreen(
                             navController = navController,
