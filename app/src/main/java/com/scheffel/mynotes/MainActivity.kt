@@ -11,6 +11,7 @@ import androidx.compose.runtime.setValue
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.scheffel.mynotes.ui.ConfigurationScreen
 import com.scheffel.mynotes.ui.HomeScreen
 import com.scheffel.mynotes.ui.WriteScreen
 import com.scheffel.mynotes.ui.theme.MyNotesTheme
@@ -36,6 +37,11 @@ class MainActivity : ComponentActivity() {
                     composable("write") {
                         WriteScreen(
                             navController = navController,
+                        )
+                    }
+                    composable("configuration") {
+                        ConfigurationScreen(
+                            navController = navController
                         )
                     }
                 }

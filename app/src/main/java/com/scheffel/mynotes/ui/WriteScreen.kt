@@ -64,9 +64,6 @@ fun WriteScreen(
     var txtTitle by remember { mutableStateOf("") }
     var txtNote by remember { mutableStateOf("") }
 
-    val focusRequester = remember { FocusRequester() }
-    val focusManager = LocalFocusManager.current
-
 
     Scaffold(
         topBar = {
@@ -123,10 +120,6 @@ fun WriteScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(values)
-//                .clickable {
-//                    focusManager.clearFocus(true)
-//                    focusRequester.requestFocus()
-//                }
         ) {
             TransparentTextFields(
                 modifier = Modifier.fillMaxWidth(),
@@ -144,9 +137,7 @@ fun WriteScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(LocalConfiguration.current.screenHeightDp.dp)
-                    .background(Color.Transparent)
-                    .focusRequester(focusRequester)
-                    .focusTarget(),
+                    .background(Color.Transparent),
                 value = txtNote,
                 onValueChange = { txtNote = it },
                 singleLine = false,
@@ -211,18 +202,6 @@ fun TransparentTextFields(
                 }
             }
         },
-    )
-}
-
-@Composable
-fun BasicoTextoField(
-    modifier: Modifier = Modifier,
-    value: String,
-    onValueChange: (String) -> Unit
-) {
-    BasicTextField(
-        value = value,
-        onValueChange = onValueChange
     )
 }
 
