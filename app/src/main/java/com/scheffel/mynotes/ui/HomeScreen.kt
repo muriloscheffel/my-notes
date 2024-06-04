@@ -55,82 +55,81 @@ fun HomeScreen(
     val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
 
-    MyNotesTheme(/*darkTheme = checked*/) {
-        Scaffold(
 
-            modifier = Modifier
-                .fillMaxSize()
-                .nestedScroll(scrollBehavior.nestedScrollConnection),
+    Scaffold(
 
-            topBar = {
-                TopAppBar(
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
 
-                    title = {
-                        Text("My notes")
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = { /*onNavigationIconClick()*/ }) {
-                            Icon(
-                                imageVector = Icons.Default.Menu,
-                                contentDescription = ""
-                            )
-                        }
-                    },
-                    actions = {
+        topBar = {
+            TopAppBar(
+
+                title = {
+                    Text("My notes")
+                },
+                navigationIcon = {
+                    IconButton(onClick = { /*onNavigationIconClick()*/ }) {
+                        Icon(
+                            imageVector = Icons.Default.Menu,
+                            contentDescription = ""
+                        )
+                    }
+                },
+                actions = {
 //                        Switch(
 //                            checked = checked,
 //                            onCheckedChange = { checked = it },
 //                            modifier = Modifier.padding(end = 5.dp)
 //                        )
-                        Spacer(Modifier.width(5.dp))
-                        IconButton(onClick = { expanded = !expanded }) {
-                            Icon(imageVector = Icons.Default.MoreVert,
-                                contentDescription = "",
-                                modifier = Modifier.size(40.dp)
-                            )
-                        }
+                    Spacer(Modifier.width(5.dp))
+                    IconButton(onClick = { expanded = !expanded }) {
+                        Icon(imageVector = Icons.Default.MoreVert,
+                            contentDescription = "",
+                            modifier = Modifier.size(40.dp)
+                        )
+                    }
 
-                        DropdownMenu(
-                            expanded = expanded,
-                            onDismissRequest = { expanded = false },
-                            modifier = Modifier.width(200.dp)
-                        ) {
-                            DropdownMenuItem(
-                                text = { Text(
-                                    text = "Account")
-                                },
-                                onClick = { /*TODO*/ }
-                            )
-                            DropdownMenuItem(
-                                text = { Text("Settings") },
-                                onClick = { navController.navigate("configuration") }
-                            )
-                        }
-                    },
-                    scrollBehavior = scrollBehavior
-                )
-            },
-            floatingActionButton = {
-                FloatingActionButton(
-                    onClick = { navController.navigate("write") },
-                    containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
-                    elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
-                ) {
-                    Icon(Icons.Filled.Add, "")
-                }
-            }
-        ) { values ->
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(values)
+                    DropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false },
+                        modifier = Modifier.width(200.dp)
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text(
+                                text = "Account")
+                            },
+                            onClick = { /*TODO*/ }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("Settings") },
+                            onClick = { navController.navigate("configuration") }
+                        )
+                    }
+                },
+                scrollBehavior = scrollBehavior
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { navController.navigate("write") },
+                containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
+                elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
             ) {
-                items(50) {
-                    Text(
-                        text = "Item $it",
-                        modifier = Modifier.padding(16.dp)
-                    )
-                }
+                Icon(Icons.Filled.Add, "")
+            }
+        }
+    ) { values ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(values)
+        ) {
+            items(50) {
+                Text(
+                    text = "Item $it",
+                    modifier = Modifier.padding(16.dp)
+                )
             }
         }
     }

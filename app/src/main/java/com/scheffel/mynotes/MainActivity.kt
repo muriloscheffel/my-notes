@@ -22,14 +22,15 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
 
-            var checked by remember { mutableStateOf(false) }
+            var checked by remember { mutableStateOf(mutableStateOf(false)) }
+
+            var txtTitle by remember { mutableStateOf("") }
+
+            val navController = rememberNavController()
 
 
-            MyNotesTheme(darkTheme = checked) {
+            MyNotesTheme(darkTheme = checked.value) {
 
-                var txtTitle by remember { mutableStateOf("") }
-
-                val navController = rememberNavController()
 
                 NavHost(navController = navController, startDestination = "home") {
                     composable("home") {

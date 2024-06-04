@@ -16,6 +16,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,58 +34,52 @@ import com.scheffel.mynotes.ui.theme.MyNotesTheme
 fun ConfigurationScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    checked: Boolean
+    checked: MutableState<Boolean>
 ) {
-
-    var checked by remember { mutableStateOf(checked) }
-
-
-    MyNotesTheme(darkTheme = checked) {
-        Scaffold(
-            topBar = {
-                CenterAlignedTopAppBar(
-                    title = { Text("Settings") },
-                    navigationIcon = {
-                        IconButton(onClick = { navController.navigate("home") }) {
-                            Icon(Icons.Default.ArrowBack, null)
-                        }
-                    },
-                )
-            }
-        ) { values ->
-            Column(
-                modifier = Modifier.padding(values)
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = { Text("Settings") },
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigate("home") }) {
+                        Icon(Icons.Default.ArrowBack, null)
+                    }
+                },
+            )
+        }
+    ) { values ->
+        Column(
+            modifier = Modifier.padding(values)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    Text(
-                        text = "Dark theme",
-                        fontSize = 22.sp
-                    )
-                    Switch(
-                        checked = checked,
-                        onCheckedChange = { checked = it }
-                    )
-                }
+                Text(
+                    text = "Dark theme",
+                    fontSize = 22.sp
+                )
+                Switch(
+                    checked = checked.value,
+                    onCheckedChange = { checked.value = it }
+                )
             }
         }
     }
 }
 
-@Preview
-@Composable
-private fun SettingsPreview() {
-    MyNotesTheme {
-        val navController = rememberNavController()
-
-
-        ConfigurationScreen(
-            navController = navController,
-            checked = false
-        )
-    }
-}
+//@Preview
+//@Composable
+//private fun SettingsPreview() {
+//    MyNotesTheme {
+//        val navController = rememberNavController()
+//
+//
+//        ConfigurationScreen(
+//            navController = navController,
+//            checked = mutableStateOf(false)
+//        )
+//    }
+//}
