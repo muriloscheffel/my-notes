@@ -50,12 +50,12 @@ fun HomeScreen(
 ) {
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-    var checked by remember { mutableStateOf(false) }
+//    var checked by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
 
-    MyNotesTheme(darkTheme = checked) {
+    MyNotesTheme(/*darkTheme = checked*/) {
         Scaffold(
 
             modifier = Modifier
@@ -77,11 +77,11 @@ fun HomeScreen(
                         }
                     },
                     actions = {
-                        Switch(
-                            checked = checked,
-                            onCheckedChange = { checked = it },
-                            modifier = Modifier.padding(end = 5.dp)
-                        )
+//                        Switch(
+//                            checked = checked,
+//                            onCheckedChange = { checked = it },
+//                            modifier = Modifier.padding(end = 5.dp)
+//                        )
                         Spacer(Modifier.width(5.dp))
                         IconButton(onClick = { expanded = !expanded }) {
                             Icon(imageVector = Icons.Default.MoreVert,

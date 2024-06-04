@@ -22,7 +22,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
 
-            MyNotesTheme {
+            var checked by remember { mutableStateOf(false) }
+
+
+            MyNotesTheme(darkTheme = checked) {
 
                 var txtTitle by remember { mutableStateOf("") }
 
@@ -41,7 +44,8 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("configuration") {
                         ConfigurationScreen(
-                            navController = navController
+                            navController = navController,
+                            checked = checked
                         )
                     }
                 }
