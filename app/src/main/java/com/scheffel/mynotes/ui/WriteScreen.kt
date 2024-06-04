@@ -1,19 +1,30 @@
-package com.scheffel.mynotes
+package com.scheffel.mynotes.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -27,15 +38,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.scheffel.mynotes.ui.theme.MyNotesTheme
-import kotlin.math.sin
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,11 +64,14 @@ fun WriteScreen(
     var txtTitle by remember { mutableStateOf("") }
     var txtNote by remember { mutableStateOf("") }
 
+    val focusRequester = remember { FocusRequester() }
+    val focusManager = LocalFocusManager.current
+
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { /*TODO*/ },
+                title = {},
                 navigationIcon = {
                     IconButton(onClick = { navController.navigate("home") }) {
                         Icon(Icons.Default.ArrowBack, null)
@@ -60,12 +79,54 @@ fun WriteScreen(
                 },
                 modifier = Modifier.padding(bottom = 8.dp)
             )
+        },
+        bottomBar = {
+            BottomAppBar(
+                actions = {
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Icon(
+                            Icons.Default.Clear,
+                            contentDescription = "",
+                            modifier = Modifier.size(35.dp)
+                        )
+                    }
+                    Spacer(Modifier.width(5.dp))
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Icon(
+                            Icons.Filled.Edit,
+                            contentDescription = "",
+                            modifier = Modifier.size(35.dp)
+                        )
+                    }
+                    Spacer(Modifier.width(5.dp))
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Icon(
+                            Icons.Default.AccountBox,
+                            contentDescription = "",
+                            modifier = Modifier.size(35.dp)
+                        )
+                    }
+                },
+                floatingActionButton = {
+                    FloatingActionButton(
+                        onClick = { navController.navigate("home") },
+                        containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
+                        elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
+                    ) {
+                        Icon(Icons.Default.Check, "")
+                    }
+                }
+            )
         }
     ) { values ->
         Column(
             modifier = Modifier
-                .padding(values)
                 .fillMaxSize()
+                .padding(values)
+//                .clickable {
+//                    focusManager.clearFocus(true)
+//                    focusRequester.requestFocus()
+//                }
         ) {
             TransparentTextFields(
                 modifier = Modifier.fillMaxWidth(),
@@ -82,7 +143,10 @@ fun WriteScreen(
             TransparentTextFields(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(750.dp),
+                    .height(LocalConfiguration.current.screenHeightDp.dp)
+                    .background(Color.Transparent)
+                    .focusRequester(focusRequester)
+                    .focusTarget(),
                 value = txtNote,
                 onValueChange = { txtNote = it },
                 singleLine = false,
@@ -97,6 +161,7 @@ fun WriteScreen(
     }
 }
 
+
 @Composable
 fun TransparentTextFields(
     modifier: Modifier = Modifier,
@@ -108,6 +173,10 @@ fun TransparentTextFields(
     placeholder: String
 ) {
     TextField(
+        textStyle = TextStyle(
+            color = Color.White,
+            fontSize = 20.sp
+        ),
         value = value,
         onValueChange = onValueChange,
         placeholder = { Text(
@@ -118,9 +187,7 @@ fun TransparentTextFields(
             fontSize = 20.sp
         ) },
         singleLine = singleLine,
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.Transparent),
+        modifier = modifier,
         keyboardOptions = keyboardOptions,
 //        keyboardOptions = KeyboardOptions(
 //            autoCorrect = false,
@@ -145,4 +212,25 @@ fun TransparentTextFields(
             }
         },
     )
+}
+
+@Composable
+fun BasicoTextoField(
+    modifier: Modifier = Modifier,
+    value: String,
+    onValueChange: (String) -> Unit
+) {
+    BasicTextField(
+        value = value,
+        onValueChange = onValueChange
+    )
+}
+
+@Preview
+@Composable
+private fun PreviewALLll() {
+    val navController = rememberNavController()
+    MyNotesTheme {
+        WriteScreen(navController)
+    }
 }

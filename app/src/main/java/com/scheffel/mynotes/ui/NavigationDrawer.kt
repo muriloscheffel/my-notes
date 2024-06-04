@@ -1,6 +1,5 @@
-package com.scheffel.mynotes
+package com.scheffel.mynotes.ui
 
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -17,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.scheffel.mynotes.MenuItem
 
 @Composable
 fun DrawerHead(modifier: Modifier = Modifier) {

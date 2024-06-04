@@ -1,4 +1,4 @@
-package com.scheffel.mynotes
+package com.scheffel.mynotes.ui
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -85,43 +85,14 @@ fun HomeScreen(
                     scrollBehavior = scrollBehavior
                 )
             },
-            bottomBar = {
-                BottomAppBar(
-                    actions = {
-                        IconButton(onClick = { /*TODO*/ }) {
-                            Icon(
-                                Icons.Filled.Check,
-                                contentDescription = "",
-                                modifier = Modifier.size(35.dp)
-                            )
-                        }
-                        Spacer(Modifier.width(5.dp))
-                        IconButton(onClick = { /*TODO*/ }) {
-                            Icon(
-                                Icons.Filled.Edit,
-                                contentDescription = "",
-                                modifier = Modifier.size(35.dp)
-                            )
-                        }
-                        Spacer(Modifier.width(5.dp))
-                        IconButton(onClick = { /*TODO*/ }) {
-                            Icon(
-                                Icons.Default.AccountBox,
-                                contentDescription = "",
-                                modifier = Modifier.size(35.dp)
-                            )
-                        }
-                    },
-                    floatingActionButton = {
-                        FloatingActionButton(
-                            onClick = { navController.navigate("write") },
-                            containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
-                            elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
-                        ) {
-                            Icon(Icons.Filled.Add, "")
-                        }
-                    }
-                )
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = { navController.navigate("write") },
+                    containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
+                    elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
+                ) {
+                    Icon(Icons.Filled.Add, "")
+                }
             }
         ) { values ->
             LazyColumn(
