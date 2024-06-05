@@ -38,6 +38,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -53,18 +54,28 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.scheffel.mynotes.ui.note.Note
+import com.scheffel.mynotes.ui.note.NoteDatabase
 import com.scheffel.mynotes.ui.theme.MyNotesTheme
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WriteScreen(
     navController: NavController,
-    modifier: Modifier = Modifier,
+    database: NoteDatabase,
+    // noteId: Int = 0
+    ) {
 
-) {
+
+
+    // val note = database.noteDao().getNote(noteId)
 
     var txtTitle by remember { mutableStateOf("") }
     var txtNote by remember { mutableStateOf("") }
+//    var txtTitle by remember { mutableStateOf(note?.title) }
+//    var txtNote by remember { mutableStateOf(note?.content) }
+    val scope = rememberCoroutineScope()
 
 
     Scaffold(
@@ -121,7 +132,16 @@ fun WriteScreen(
                 },
                 floatingActionButton = {
                     FloatingActionButton(
-                        onClick = { navController.navigate("home") },
+                        onClick = {
+                            scope.launch {
+                                database.noteDao().insert(Note(
+                                    title = txtTitle.toString(),
+                                    content = txtNote.toString()
+                                )
+                                )
+                            }
+                            navController.navigate("home")
+                        },
                         containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
                         elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
                     ) {
@@ -166,6 +186,7 @@ fun WriteScreen(
         }
     }
 }
+
 
 
 @Composable
@@ -215,11 +236,3 @@ fun TransparentTextFields(
     )
 }
 
-@Preview
-@Composable
-private fun PreviewALLll() {
-    val navController = rememberNavController()
-    MyNotesTheme {
-        WriteScreen(navController)
-    }
-}
