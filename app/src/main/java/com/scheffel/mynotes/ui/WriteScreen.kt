@@ -19,7 +19,9 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -82,25 +84,38 @@ fun WriteScreen(
                 actions = {
                     IconButton(onClick = { /*TODO*/ }) {
                         Icon(
-                            Icons.Default.Clear,
-                            contentDescription = "",
-                            modifier = Modifier.size(35.dp)
-                        )
-                    }
-                    Spacer(Modifier.width(5.dp))
-                    IconButton(onClick = { /*TODO*/ }) {
-                        Icon(
                             Icons.Filled.Edit,
                             contentDescription = "",
-                            modifier = Modifier.size(35.dp)
+                            modifier = Modifier.size(30.dp)
                         )
                     }
                     Spacer(Modifier.width(5.dp))
                     IconButton(onClick = { /*TODO*/ }) {
                         Icon(
-                            Icons.Default.AccountBox,
+                            Icons.Filled.AccountBox,
                             contentDescription = "",
-                            modifier = Modifier.size(35.dp)
+                            modifier = Modifier.size(30.dp)
+                        )
+                    }
+
+                    Spacer(Modifier.width(5.dp))
+
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Icon(
+                            Icons.Filled.Favorite,
+                            contentDescription = null,
+                            modifier = Modifier.size(30.dp)
+
+                        )
+                    }
+
+                    Spacer(Modifier.width(5.dp))
+
+                    IconButton(onClick = { navController.navigate("home") }) {
+                        Icon(
+                            Icons.Filled.Delete,
+                            contentDescription = "",
+                            modifier = Modifier.size(30.dp)
                         )
                     }
                 },

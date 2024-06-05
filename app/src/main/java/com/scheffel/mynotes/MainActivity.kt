@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             // Variavel que altera o boolean do dark mode
-            val checked by remember { mutableStateOf(mutableStateOf(false)) }
+            val checked by remember { mutableStateOf(mutableStateOf(true)) }
 
             // Controlador da navegação
             val navController = rememberNavController()
