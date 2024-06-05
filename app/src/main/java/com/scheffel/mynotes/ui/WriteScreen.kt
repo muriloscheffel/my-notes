@@ -180,16 +180,12 @@ fun TransparentTextFields(
 ) {
     TextField(
         textStyle = TextStyle(
-            color = Color.White,
             fontSize = 20.sp
         ),
         value = value,
         onValueChange = onValueChange,
         placeholder = { Text(
             text = placeholder,
-            style = TextStyle(
-                color = Color.Gray
-            ),
             fontSize = 20.sp
         ) },
         singleLine = singleLine,
@@ -204,7 +200,6 @@ fun TransparentTextFields(
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
             errorIndicatorColor = Color.Transparent,
-            cursorColor = Color.White,
             unfocusedContainerColor = Color.Transparent,
             focusedContainerColor = Color.Transparent
         ),
